@@ -1,0 +1,102 @@
+@(collectorForm: Form[Collector])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+
+@adminui(Messages("create")+Messages("collector")){
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="icon-edit"></i>
+                    <span>@Messages("create")@Messages("collector")</span>
+                </h1>
+                <div class="pull-right">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="@routes.Collectors.index">
+                                <i class="icon-bar-chart"></i>
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li>
+                        @Messages("collector")
+                        </li>
+                        <li class="separator">
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li class="active">@Messages("create")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @helper.form(action = routes.Collectors.save(), 'id -> "form", 'class -> "form form-horizontal") {
+        <input type="hidden" name="id" id="id" value="@collectorForm.get.id" >
+        @inputText(
+            collectorForm("name"),
+            '_label -> Messages("name"),
+            'class -> "form-control"
+        )
+
+        @inputText(
+           collectorForm("site_name"),
+           '_label -> Messages("site_name"),
+            'class -> "form-control"
+        )
+
+        @inputText(
+            collectorForm("type_name"),
+            '_label -> Messages("type"),
+            'class -> "form-control"
+        )
+
+        @inputText(
+           collectorForm("url"),
+           '_label -> Messages("url"),
+            'class -> "form-control"
+        )
+
+        @inputText(
+            collectorForm("item_rules"),
+            '_label -> Messages("item_rules"),
+            'class -> "form-control"
+        )
+
+
+        @inputText(
+            collectorForm("min_pages"),
+            '_label -> Messages("min_pages"),
+            'class -> "form-control"
+        )
+
+        @inputText(
+            collectorForm("max_pages"),
+            '_label -> Messages("max_pages"),
+            'class -> "form-control"
+        )
+
+
+        <div class="form-actions form-actions-padding-sm">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-2">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="icon-save"></i>
+                        @Messages("save")
+                    </button>
+                    <button class="btn btn-warning" type="reset"><i class="icon-repeat"></i>@Messages("cancel")</button>
+                    <button class="btn btn-danger" type="button"><a href="@routes.Attributions.blank(collectorForm.get.id)"><i class="icon-add"></i>@Messages("create")@Messages("attribution")</a></button>
+                    <button class="btn btn-danger" type="button"><a href="@routes.Attributions.list(collectorForm.get.id)"><i class="icon-table"></i>@Messages("list")@Messages("attribution")</a></button>
+                    <button class="btn btn-danger" type="button"><a href="@routes.Collectors.delete(collectorForm.get.id)"><i class="icon-remove"></i>@Messages("delete")</a></button>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+}

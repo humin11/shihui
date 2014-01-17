@@ -1,0 +1,69 @@
+@(currentPage: com.avaje.ebean.Page[Goods], currentSortBy: String, currentOrder: String)
+
+@import widgets._
+        @****************************************
+        * Helper generating navigation links    *
+        ****************************************@
+    @link(newPage:Int, newSortBy:String) = @{
+
+        var sortBy = currentSortBy
+        var order = currentOrder
+
+        if(newSortBy != null) {
+            sortBy = newSortBy
+            if(currentSortBy == newSortBy) {
+                if(currentOrder == "asc") {
+                    order = "desc"
+                } else {
+                    order = "asc"
+                }
+            } else {
+                order = "asc"
+            }
+        }
+
+        // Generate the link
+
+
+    }
+
+@adminui(Messages("admin.dashboard")){
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="icon-eye-close"></i>
+                    <span>@Messages("list")@Messages("goodses")</span>
+                </h1>
+                <div class="pull-right">
+                    <a href="@routes.Collectors.blank" class="btn btn-xs btn-success"><i class="icon-edit"></i>@Messages("create")</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+        <thead>
+            <tr>
+                <th>
+                    @Messages("name")
+                </th>
+                <th>
+                    @Messages("source")
+                </th>
+                <th>@Messages("price")</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(goods <- currentPage.getList){
+            <tr>
+                <td><a href="@routes.Goodses.edit(goods.id)">@goods.name</a> </td>
+                <td>@goods.source</td>
+                <td>@goods.price</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+}

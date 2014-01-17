@@ -1,0 +1,64 @@
+
+#system
+application = 爱上逛街
+welcome = 欢迎光临
+copyright = Copyright © 2013 ishgj.com
+
+# General
+save =   保存
+cancel = 重置
+
+create = 创建
+modify = 修改
+delete = 删除
+list = 查看
+
+#admin
+admin.title=实惠管理后台
+admin.dashboard=Dashboard
+
+#
+dashboard = 首页
+collector = 收集器
+attribution = 收集规则
+name = 名称
+rules = 收集规则
+site_name = 网站名称
+url = 采集地址
+type = 数据类型
+isActive=是否激活
+create_at = 创建时间
+update_at = 更新时间
+
+
+# Collector
+layer=采集层级
+source = 来源
+price = 价格
+original_price=原始价格
+description=产品描述
+original_url=原始URL
+brand=产品品牌
+model=产品型号
+types=产品分类
+picList=图片
+
+
+# page
+index=首页
+goods=优惠单品
+coupon=优惠套装
+about=关于我们
+contact=联系我们
+comment=小编寄语
+
+goodses=商品
+baoliao=爆料
+shaidan=晒单
+search = 搜索
+categories =商品分类
+recommended=推荐商品
+recommended.popular=畅销
+recommended.recent=最新
+ad=广告视频
+tags=标签

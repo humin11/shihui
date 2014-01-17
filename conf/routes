@@ -1,0 +1,41 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                    controllers.Application.index()
+GET         /goods                               controllers.Application.list(p:Int ?= 0, s ?= "name", o ?= "asc")
+
+GET         /sched                               controllers.Application.schedule()
+
+# Admin page
+GET         /admin                               controllers.Admin.index()
+
+
+# Admin goodses Page
+GET         /admin/goods                         controllers.Goodses.index()
+GET         /admin/goods/list                    controllers.Goodses.list(p:Int ?= 0, s ?= "name", o ?= "asc")
+POST        /admin/goods/save                    controllers.Goodses.save()
+GET         /admin/goods/:id                     controllers.Goodses.edit(id: Long)
+
+# Collectors page
+GET         /admin/collector                     controllers.Collectors.index()
+GET         /admin/collector/blank               controllers.Collectors.blank()
+POST        /admin/collector/create              controllers.Collectors.create()
+POST        /admin/collector/save                controllers.Collectors.save()
+GET         /admin/collector/delete/:id          controllers.Collectors.delete(id: Long)
+GET         /admin/collector/:id                 controllers.Collectors.edit(id: Long)
+
+
+# Attributions page
+GET         /admin/attribution                   controllers.Attributions.index()
+GET         /admin/attribution/list/:cid         controllers.Attributions.list(cid: Long)
+GET         /admin/attribution/blank/:cid        controllers.Attributions.blank(cid: Long)
+POST        /admin/attribution/create            controllers.Attributions.create()
+POST        /admin/attribution/save              controllers.Attributions.save()
+GET         /admin/attribution/delete/:id        controllers.Attributions.delete(id: Long)
+GET         /admin/attribution/:id               controllers.Attributions.edit(id: Long)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                        controllers.Assets.at(path="/public", file)

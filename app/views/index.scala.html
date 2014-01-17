@@ -1,0 +1,121 @@
+@(currentPage: com.avaje.ebean.Page[Goods], currentSortBy: String, currentOrder: String)
+
+@import widgets._
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+    @link(newPage:Int, newSortBy:String) = @{
+
+        var sortBy = currentSortBy
+        var order = currentOrder
+
+        if(newSortBy != null) {
+            sortBy = newSortBy
+            if(currentSortBy == newSortBy) {
+                if(currentOrder == "asc") {
+                    order = "desc"
+                } else {
+                    order = "asc"
+                }
+            } else {
+                order = "asc"
+            }
+        }
+
+        // Generate the link
+        routes.Application.list(newPage, sortBy, order)
+
+    }
+
+
+
+@main(Messages("welcome")+Messages("application")) {
+    <div class="pg-opt pin">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>@Messages("")</h2>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Pages</a></li>
+                        <li class="active">Blog</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <section class="slice bg-3">
+        <div class="w-section inverse">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 ">
+                        <ul class="list-listings blog-list jscroll">
+
+                            @for(goods <- currentPage.getList){
+                            <li class="animated fadeInUp" data-animation="fadeInUp" data-animation-delay="5s">
+                                <div class="listing-image">
+                                    <img src="@if(goods.picList.size()>0){ @goods.picList.get(0).larger }" class="img-responsive" alt="">
+                                </div>
+                                <div class="listing-body">
+                                    <h3><a href="#">@goods.name</a></h3>
+                                    <div class="list-item-info">
+                                        <span class="author">由<a href="">胡敏</a>推荐</span>
+                                        <span class="date">2013-01-13</span>
+                                    </div>
+                                    <p>
+                                        <span class="text-left"><strong>@Messages("comment"):</strong></span>@goods.comment
+
+                                    </p>
+                                    <div>
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-thumbs-o-up"></i>鲜花(10)</a>
+                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-thumbs-down"></i>鸡蛋(10)</a>
+                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-comments"></i>评论(10)</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="@goods.original_url" class="btn btn-xs btn-two" target="_blank">直达购买</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            }
+                            <div class="pagination hide">
+                            @if(currentPage.hasNext) {
+                                <a href="@link(currentPage.getPageIndex + 1, null)" class="next">Next &rarr;</a>
+                            }
+                            </div>
+
+                        </ul>
+                        <div class="loading text-center">
+                            <img src="@routes.Assets.at("images/ajax-loaders/17.gif")" />
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-3">
+                        @baoliao()
+
+                        @categories()
+
+                        @recommended()
+
+                        @ad()
+
+                        @tags()
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/plugins/waypoints/waypoints.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/plugins/waypoints/waypoints-infinite.js")"></script>
+
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
+}

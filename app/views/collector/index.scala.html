@@ -1,0 +1,48 @@
+@(collectorList: java.util.List[Collector])
+
+@adminui(Messages("admin.dashboard")){
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="icon-eye-close"></i>
+                    <span>@Messages("list")@Messages("collector")</span>
+                </h1>
+                <div class="pull-right">
+                    <a href="@routes.Collectors.blank" class="btn btn-xs btn-success"><i class="icon-edit"></i>@Messages("create")</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+        <thead>
+            <tr>
+                <th>
+                    @Messages("name")
+                </th>
+                <th>
+                    @Messages("site_name")
+                </th>
+                <th>
+                    @Messages("type")
+                </th>
+                <th>
+                    @Messages("isActive")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(collector <- collectorList){
+            <tr>
+                <td><a href="@routes.Collectors.edit(collector.id)">@collector.name</a> </td>
+                <td>@collector.site_name</td>
+                <td>@collector.type_name</td>
+                <td>@collector.isActive</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+}

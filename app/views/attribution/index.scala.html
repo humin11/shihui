@@ -1,0 +1,44 @@
+@(attrList: java.util.List[Attribution])
+
+@adminui(Messages("admin.dashboard")){
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="icon-eye-close"></i>
+                    <span>@Messages("list")@Messages("attribution")</span>
+                </h1>
+                <div class="pull-right">
+                    @*<a href="@routes.Attributions.blank" class="btn btn-xs btn-success"><i class="icon-edit"></i>@Messages("create")</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+        <thead>
+            <tr>
+                <th>
+                @Messages("collector")
+                </th>
+                <th>
+                @Messages("name")
+                </th>
+                <th>
+                @Messages("rules")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(attr <- attrList){
+            <tr>
+                <td><a href="@routes.Attributions.list(attr.coll.id)">@attr.coll.name</a></td>
+                <td><a href="@routes.Attributions.edit(attr.id)">@attr.name</a> </td>
+                <td>@attr.rules</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+}

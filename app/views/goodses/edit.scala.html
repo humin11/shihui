@@ -1,0 +1,74 @@
+@(goodsForm: Form[Goods])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+
+@adminui(Messages("create")+Messages("goodses")){
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="icon-edit"></i>
+                    <span>@Messages("create")@Messages("collector")</span>
+                </h1>
+                <div class="pull-right">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="@routes.Goodses.index">
+                                <i class="icon-bar-chart"></i>
+                            </a>
+                        </li>
+                        <li class="separator">
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li>
+                        @Messages("collector")
+                        </li>
+                        <li class="separator">
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li class="active">@Messages("create")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @helper.form(action = routes.Goodses.save(), 'id -> "form", 'class -> "form form-horizontal") {
+        <input type="hidden" name="id" id="id" value="@goodsForm.get.id" >
+        @inputText(
+            goodsForm("name"),
+            '_label -> Messages("name"),
+            'class -> "form-control"
+        )
+
+        @inputText(
+            goodsForm("is_release"),
+           '_label -> Messages("is_release"),
+            'class -> "form-control"
+        )
+
+        @inputText(
+            goodsForm("comment"),
+            '_label -> Messages("comment"),
+            'class -> "form-control"
+        )
+
+
+        <div class="form-actions form-actions-padding-sm">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-2">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="icon-save"></i>
+                        @Messages("save")
+                    </button>
+                    <button class="btn btn-warning" type="reset"><i class="icon-repeat"></i>@Messages("cancel")</button>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+}
