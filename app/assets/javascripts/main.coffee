@@ -6,3 +6,4 @@ $(".jscroll").waypoint "infinite",
   loadingClass: "loading"
   onBeforePageLoad: $.noop
   onAfterPageLoad: $.noop
+

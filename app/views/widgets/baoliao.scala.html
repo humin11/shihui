@@ -1,6 +1,72 @@
 <div class="widget">
     <div class="btn-group btn-group-justified">
-        <a class="btn btn-primary" href="#">爆料</a>
-        <a class="btn btn-info" href="#">晒单</a>
+        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#myModal">@Messages("baoliao")</a>
+        <a class="btn btn-info" href="#">@Messages("shaidan")</a>
+    </div>
+        <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form form-horizontal" id="baoliaoForm" name="baoliaoForm" action="@routes.Goodses.doBaoliao()" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">@Messages("baoliao.title")</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                @Messages("baoliao.url")
+                            </label>
+                            <div class="col-md-10">
+                                <input type="url" class="form-control" id="url" name="url"/>
+                                <span class="help-block hide">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                            @Messages("baoliao.reason")
+                            </label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" rows="8" id="content" name="content"></textarea>
+                                <span class="help-block hide">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">@Messages("close")</button>
+                        <button type="submit" class="btn btn-primary">@Messages("save")</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+<script type="text/javascript">
+$("#baoliaoForm" ).validate({
+    rules:{
+        url:{
+            required: true,
+            url: true,
+            remote:{
+                url: "@routes.Goodses.checkURL()",
+                type:"post"
+            }
+        },
+        content: {
+            required: true
+        }
+    },
+    messages:{
+        url:{
+            required: '@Messages("error.required")',
+            url:'@Messages("error.url")',
+            remote: '@Messages("error.unique")'
+        },
+        content:{
+            required: '@Messages("error.required")'
+        }
+    },
+    errorElement:"span",
+    errorClass:"text-danger"
+});
+</script>

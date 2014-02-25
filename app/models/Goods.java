@@ -7,10 +7,7 @@ import play.i18n.Messages;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Humin on 1/6/14.
@@ -47,6 +44,15 @@ public class Goods extends Model {
     public ProductType types;
 
     public Boolean is_release=false;
+
+    @OneToMany
+    public List<Flower> flowerList = new ArrayList<Flower>();
+
+    @OneToMany
+    public List<Egg> eggList = new ArrayList<Egg>();
+
+    @OneToMany
+    public List<Comment> commentList = new ArrayList<Comment>();
 
     @OneToMany
     public List<GoodsPic> picList;

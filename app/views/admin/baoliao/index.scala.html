@@ -1,0 +1,66 @@
+@(currentPage: com.avaje.ebean.Page[Baoliao], currentSortBy: String, currentOrder: String)
+
+        @****************************************
+        * Helper generating navigation links    *
+        ****************************************@
+    @link(newPage:Int, newSortBy:String) = @{
+
+        var sortBy = currentSortBy
+        var order = currentOrder
+
+        if(newSortBy != null) {
+            sortBy = newSortBy
+            if(currentSortBy == newSortBy) {
+                if(currentOrder == "asc") {
+                    order = "desc"
+                } else {
+                    order = "asc"
+                }
+            } else {
+                order = "asc"
+            }
+        }
+
+        // Generate the link
+
+
+    }
+
+@adminui(Messages("baoliao.admin")){
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="icon-eye-close"></i>
+                    <span>@Messages("list")@Messages("baoliao")</span>
+                </h1>
+
+            </div>
+        </div>
+    </div>
+
+    <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+        <thead>
+            <tr>
+                <th>
+                @Messages("baoliao.url")
+                </th>
+                <th>
+                @Messages("baoliao.reason")
+                </th>
+                <th>@Messages("baoliao.user")</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(baoliao <- currentPage.getList){
+            <tr>
+                <td><a href="@routes.BaoliaoAdmin.edit(baoliao.id)">@baoliao.url</a> </td>
+                <td>@baoliao.content</td>
+                <td>@baoliao.user.name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+}

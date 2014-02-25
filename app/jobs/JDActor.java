@@ -14,7 +14,9 @@ import org.jsoup.select.Elements;
 import play.libs.Akka;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Humin on 1/9/14.
@@ -29,22 +31,26 @@ public class JDActor extends UntypedActor {
 
         if(message instanceof CollectorItem){
             CollectorItem item = (CollectorItem)message;
-            WebClient webClient = new WebClient(BrowserVersion.CHROME);
+            long time0 = Calendar.getInstance().getTimeInMillis();
+            WebClient webClient = new WebClient();
             HtmlPage page = null;
+            long time1 = Calendar.getInstance().getTimeInMillis();
             try {
                 page = webClient.getPage(item.url);
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             Document doc = Jsoup.parse(page.asXml());
-
+            long time2 = Calendar.getInstance().getTimeInMillis();
             Goods goods = Goods.find.where().eq("original_url", item.url).findUnique();
             if(goods==null){
                 goods = new Goods();
+                long time3 = Calendar.getInstance().getTimeInMillis();
                 List<Attribution> attrList = Attribution.find.where().eq("coll.id", item.coll.id).isNotNull("rules").findList();
                 Brand _brand = null;
                 ProductType _type = null;
                 GoodsPic _pic = null;
+                long time4 = Calendar.getInstance().getTimeInMillis();
                 for(Attribution attr: attrList){
                     if(attr.name.equalsIgnoreCase("name")){
                         goods.name = doc.select(attr.rules).text();
@@ -95,6 +101,13 @@ public class JDActor extends UntypedActor {
                     goods.save();
 
                 }
+                long time5 = Calendar.getInstance().getTimeInMillis();
+
+                play.Logger.info("time1-time0:"+ (time1-time0));
+                play.Logger.info("time2-time1:"+ (time2-time1));
+                play.Logger.info("time3-time2:"+ (time3-time2));
+                play.Logger.info("time4-time3:"+ (time4-time3));
+                play.Logger.info("time5-time4:"+ (time5-time4));
             }
 
         }

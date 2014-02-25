@@ -72,11 +72,12 @@
                                     </p>
                                     <div>
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-thumbs-o-up"></i>鲜花(10)</a>
-                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-thumbs-down"></i>鸡蛋(10)</a>
-                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-comments"></i>评论(10)</a>
+                                            <a href="javascript:addFlower('@routes.Goodses.addFlower(goods.id)')" class="btn btn-xs btn-four"><i class="fa fa-thumbs-o-up"></i>鲜花(@goods.flowerList.size())</a>
+                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-thumbs-down"></i>鸡蛋(@goods.eggList.size())</a>
+                                            <a href="#" class="btn btn-xs btn-four"><i class="fa fa-comments"></i>评论(@goods.commentList.size()</a>
                                         </div>
                                         <div class="pull-right">
+                                            <a href="@goods.original_url" class="btn btn-xs btn-three" target="_blank">返利购买</a>
                                             <a href="@goods.original_url" class="btn btn-xs btn-two" target="_blank">直达购买</a>
                                         </div>
                                     </div>
@@ -91,7 +92,7 @@
                             </div>
 
                         </ul>
-                        <div class="loading text-center">
+                        <div class="loading text-center hide">
                             <img src="@routes.Assets.at("images/ajax-loaders/17.gif")" />
                         </div>
 
@@ -103,8 +104,6 @@
                         @categories()
 
                         @recommended()
-
-                        @ad()
 
                         @tags()
 
@@ -118,4 +117,11 @@
     <script type="text/javascript" src="@routes.Assets.at("javascripts/plugins/waypoints/waypoints-infinite.js")"></script>
 
     <script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
+    <script type="text/javascript">
+    function addFlower(url){
+    $.get(url, function(data){
+       alert(data);
+    });
+    }
+    </script>
 }
